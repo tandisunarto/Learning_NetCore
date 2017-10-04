@@ -30,7 +30,7 @@ namespace Async
             lblTimer.Text = $"Timer TTL {timerTTL} sec (Running)";
         }
 
-        public async Task<int> GetValue()
+        public async Task<(int, bool)> GetValue()
         {
             await Task.Delay(2000);
 
@@ -38,27 +38,20 @@ namespace Async
             cacheValue = r.Next();
             timeTolLive = DateTime.Now.AddSeconds(timerTTL);
             timer1.Start();
-            return cacheValue;
+            return (cacheValue, false);
         }
 
-        public ValueTask<int> LoadReadCache(out bool cached)
+        public ValueTask<(int, bool)> LoadReadCache()
         {
             if (timeTolLive < DateTime.Now)
-            {
-                cached = false;
-                return new ValueTask<int>(GetValue());
-            }
+                return new ValueTask<(int, bool)>(GetValue());
             else
-            {
-                cached = true;
-                return new ValueTask<int>(cacheValue);
-            }
+                return new ValueTask<(int, bool)>((cacheValue, true));
         }
-
 
         private async void btnTestAsync_Click(object sender, EventArgs e)
         {
-            int value = await LoadReadCache(out bool isCached);
+            (int value, bool isCached) = await LoadReadCache();
 
             if (isCached)
             {
