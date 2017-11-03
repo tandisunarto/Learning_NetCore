@@ -9,18 +9,22 @@ namespace HelloDocker2.Controllers
     [Route("api/[controller]")]
     public class ValuesController : Controller
     {
+        string[] Beatles = { "John Lennon", "Paul McCartney", "George Harrison", "Ringo Starr" };
         // GET api/values
         [HttpGet]
         public IEnumerable<string> Get()
         {
-            return new string[] { "value1", "value2" };
+            return Beatles;
         }
 
         // GET api/values/5
         [HttpGet("{id}")]
         public string Get(int id)
         {
-            return "value";
+            if (id == 0 || id > Beatles.Length)
+                return "There are only 4 members in \"The Beatles\"";
+            else
+                return Beatles[id - 1];
         }
 
         // POST api/values
