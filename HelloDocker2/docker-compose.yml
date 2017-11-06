@@ -1,0 +1,10 @@
+version: "3.1"
+
+services:
+  generator:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: demo/hellodocker2:multi
+    ports:
+      -  "9000:80"
