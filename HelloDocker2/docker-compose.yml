@@ -1,10 +1,15 @@
 version: "3.1"
 
 services:
-  generator:
+  webapi:
     build:
       context: .
       dockerfile: Dockerfile
     image: demo/hellodocker2:multi
     ports:
-      -  "9000:80"
+      - "9000:80"
+  mail: 
+    image: mailhog/mailhog
+    ports:
+      - "8025:8025"
+      # - "1025:1025"

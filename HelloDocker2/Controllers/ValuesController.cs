@@ -24,7 +24,7 @@ namespace HelloDocker2.Controllers
             if (id == 0 || id > Beatles.Length)
                 return "There are only 4 members in \"The Beatles\"";
             else
-                return Beatles[id - 1];
+                return $"Member #{id} is {Beatles[id - 1]}";
         }
 
         // POST api/values
