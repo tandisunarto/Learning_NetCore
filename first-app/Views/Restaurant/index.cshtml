@@ -1,0 +1,15 @@
+@model IEnumerable<Restaurant>
+
+<html>
+    <head></head>
+    <body>
+        <table>
+        @foreach(var restaurant in Model) {
+            <tr>
+                <td style="border:solid 1px">@restaurant.Id</td>
+                <td style="border:solid 1px">@restaurant.Name</td>
+            </tr>
+        }
+        </table>
+    </body>
+</html>
