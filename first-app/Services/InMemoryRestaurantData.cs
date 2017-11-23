@@ -14,6 +14,11 @@ public class InMemoryRestaurantData : IRestaurantData
         };
     }
 
+    public Restaurant Get(int Id)
+    {
+        return restaurants.FirstOrDefault(r => r.Id == Id);
+    }
+
     public IEnumerable<Restaurant> GetAll()
     {
         return restaurants.OrderBy(r => r.Name);

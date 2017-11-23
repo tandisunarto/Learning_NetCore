@@ -19,6 +19,7 @@ namespace first_app
         {
             services.AddMvc();
             services.AddScoped<IRestaurantData, InMemoryRestaurantData>();
+            services.AddScoped<IGreeter, Greeter>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
