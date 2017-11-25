@@ -1,9 +1,8 @@
 using System.ComponentModel.DataAnnotations;
 
-public class Restaurant 
+public class RestaurantEditModel
 {
-    public int Id { get; set; }
-    [Display(Name="Restaurant Name")]
+    [Required, MaxLength(30)]
     public string Name { get; set; }
     public CuisineType Cuisine { get; set; }
 }

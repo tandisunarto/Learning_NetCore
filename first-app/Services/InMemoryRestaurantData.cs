@@ -14,6 +14,13 @@ public class InMemoryRestaurantData : IRestaurantData
         };
     }
 
+    public Restaurant Add(Restaurant newRestaurant)
+    {
+        newRestaurant.Id = restaurants.Max(r => r.Id) + 1;
+        restaurants.Add(newRestaurant);
+        return newRestaurant;
+    }
+
     public Restaurant Get(int Id)
     {
         return restaurants.FirstOrDefault(r => r.Id == Id);
