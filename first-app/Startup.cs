@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
@@ -13,24 +15,39 @@ namespace first_app
 {
     public class Startup
     {
+        private IConfiguration _configuration;
+
+        public Startup(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
+
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
-            services.AddSingleton<IRestaurantData, InMemoryRestaurantData>();
+            services.AddScoped<IRestaurantData, SqlRestaurantData>();
+            services.AddDbContext<OdeToFoodDbContext>(
+                options => options.UseSqlServer(_configuration.GetConnectionString("OdeToFood"))
+            );
+
             services.AddSingleton<IGreeter, Greeter>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILogger<Startup> logger)
+        public void Configure(
+            IApplicationBuilder app, 
+            IHostingEnvironment env, 
+            ILogger<Startup> logger,
+            IConfiguration configuration)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-            }            
+            }
 
-            // // will get routed to Home/Index
+            // will get routed to Home/Index
             // app.UseMvcWithDefaultRoute()
 
             // app.UseMvc(
@@ -42,7 +59,7 @@ namespace first_app
             app.UseMvc(RouteConfig);
 
             app.UseDefaultFiles();
-            app.UseStaticFiles();            
+            app.UseStaticFiles();
 
             app.Run(async (context) =>
             {
