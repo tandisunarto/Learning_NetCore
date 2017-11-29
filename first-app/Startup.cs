@@ -39,13 +39,14 @@ namespace first_app
         public void Configure(
             IApplicationBuilder app, 
             IHostingEnvironment env, 
-            ILogger<Startup> logger,
-            IConfiguration configuration)
+            ILogger<Startup> logger)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            logger.LogInformation($"{env.EnvironmentName} -> Connection String: {_configuration.GetConnectionString("OdeToFood")}");
 
             // will get routed to Home/Index
             // app.UseMvcWithDefaultRoute()
