@@ -5,19 +5,16 @@
 }
 
 <h1>All Restaurants</h1>
-<table>
+
 @foreach(var restaurant in Model.Restaurants) {
-    <tr>
-        <td style="border:solid 1px">@restaurant.Id</td>
-        <td style="border:solid 1px">@restaurant.Name</td>
-        <td>
-            <a asp-action="detail" asp-route-id="@restaurant.Id">Detail</a>
-        </td>
-    </tr>
+    @Html.Partial("_summary", restaurant);
 }
-</table>
-<a asp-action="create">Add Restaurant </a>
+<hr>
+
+<div>
+    <a asp-action="create">Add Restaurant </a>
+</div>
 
 @section footer {
-    @Model.CurrentMessage
+    @DateTime.Now
 }

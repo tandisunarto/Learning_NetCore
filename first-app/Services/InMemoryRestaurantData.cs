@@ -30,4 +30,9 @@ public class InMemoryRestaurantData : IRestaurantData
     {
         return restaurants.OrderBy(r => r.Name);
     }
+
+    public Restaurant Update(Restaurant restaurant)
+    {
+        throw new System.NotImplementedException();
+    }
 }

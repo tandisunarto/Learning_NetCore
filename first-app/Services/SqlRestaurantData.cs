@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 public class SqlRestaurantData : IRestaurantData
 {
@@ -16,9 +17,6 @@ public class SqlRestaurantData : IRestaurantData
         return newRestaurant;
     }
 
-
-    
-
     public Restaurant Get(int Id)
     {
         return _context.Restaurants.FirstOrDefault(r => r.Id == Id);
@@ -27,5 +25,12 @@ public class SqlRestaurantData : IRestaurantData
     public IEnumerable<Restaurant> GetAll()
     {
         return _context.Restaurants.OrderBy(r => r.Name);
+    }
+
+    public Restaurant Update(Restaurant restaurant)
+    {
+        _context.Attach(restaurant).State = EntityState.Modified;
+        _context.SaveChanges();
+        return restaurant;
     }
 }
