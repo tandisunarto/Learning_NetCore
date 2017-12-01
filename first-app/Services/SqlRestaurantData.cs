@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
@@ -30,7 +31,15 @@ public class SqlRestaurantData : IRestaurantData
     public Restaurant Update(Restaurant restaurant)
     {
         _context.Attach(restaurant).State = EntityState.Modified;
-        _context.SaveChanges();
+        try
+        {
+            _context.SaveChanges();    
+        }
+        catch (DbUpdateConcurrencyException ex)
+        {            
+            throw new Exception($"Failed Update. Error Message: {ex.Message}", ex);
+        }
+        
         return restaurant;
     }
 }

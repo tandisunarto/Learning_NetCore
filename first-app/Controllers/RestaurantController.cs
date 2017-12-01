@@ -1,5 +1,7 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
+[Authorize]
 public class RestaurantController : Controller 
 {
     private IRestaurantData _restaurantData;
@@ -11,6 +13,7 @@ public class RestaurantController : Controller
         _greeter = greeter;
     }
 
+    [AllowAnonymous]
     public IActionResult Index() 
     {
         var model = new HomeIndexViewModel();
