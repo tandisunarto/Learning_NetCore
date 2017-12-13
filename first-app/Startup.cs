@@ -68,12 +68,15 @@ namespace first_app
             //     routes => routes.MapRoute(
             //         "default",
             //         "{controller=home}/{action=Index}/{id?}"
-            //     )
+            //     )            
             // );
-            app.UseMvc(RouteConfig);
 
-            app.UseDefaultFiles();
+            // app.UseDefaultFiles();
             app.UseStaticFiles();
+
+            app.UseAuthentication();
+
+            app.UseMvc(RouteConfig);
 
             app.Run(async (context) =>
             {
