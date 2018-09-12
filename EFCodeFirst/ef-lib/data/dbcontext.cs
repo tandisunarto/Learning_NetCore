@@ -8,7 +8,7 @@ public class FirstContext : DbContext
     {
         base.OnConfiguring(optionsBuilder);
 
-        optionsBuilder.UseSqlServer("Server=ICF2008640-VM2;Database=AIDSInfo;User Id=sa;Password=Password!1");
+        optionsBuilder.UseSqlServer("Server=ICF2008640-VM2;Database=TEST_EF;User Id=sa;Password=Password!1");
     }
     
     public DbSet<Employee> Employees { get; set; }
