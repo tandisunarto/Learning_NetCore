@@ -1,3 +1,3 @@
 dotnet ef dbcontext scaffold "Data Source=(localdb);Initial Catalog=AdventureWorks2017;Integrated Security=True" Microsoft.EntityFrameworkCore.SqlServer -d -c AdventureWorksContext -o Migrations\Entities --force
 
-dotnet ef dbcontext scaffold "Server=ICF2008831-VM;Database=AdventureWorks2017;User Id=sa;Password=Password!1;" Microsoft.EntityFrameworkCore.SqlServer -d -c AdventureWorksContext -o Migrations\Entities --force
+dotnet ef dbcontext scaffold "Data Source=ICF2008831-VM;Initial Catalog=AdventureWorks2017;User Id=tandi;Password=Password@2;" Microsoft.EntityFrameworkCore.SqlServer -d -c AdventureWorksContext -o Migrations\Entities --force
