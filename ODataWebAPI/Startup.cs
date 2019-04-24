@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.AspNet.OData.Extensions;
 
 namespace ODataWebAPI
 {
@@ -41,7 +42,12 @@ namespace ODataWebAPI
 
             services.AddAutoMapper();
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddDbContext<BookStoreContext>(opt => opt.UseInMemoryDatabase("BookLists"));
+            services.AddOData();
+
+            services.AddMvc(options => {
+               options.EnableEndpointRouting = false;
+            }).SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -60,7 +66,10 @@ namespace ODataWebAPI
             }
 
             app.UseHttpsRedirection();
-            app.UseMvc();
+            app.UseMvc(b =>
+            {
+                b.MapODataServiceRoute("odata", "odata", BooksEdmModel.GetEdmModel());
+            });
         }
     }
 }
