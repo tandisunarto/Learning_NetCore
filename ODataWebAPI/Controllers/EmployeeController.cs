@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using ODataWebAPI.Models;
 
 namespace ODataWebAPI.Controllers
 {
@@ -10,10 +12,15 @@ namespace ODataWebAPI.Controllers
     [ApiController]
     public class EmployeeController : ControllerBase
     {
+        private IMapper _mapper;
         private appContext _dbContext;
 
-        public EmployeeController(appContext dbContext)
+        public EmployeeController(
+            appContext dbContext,
+            IMapper mapper
+            )
         {
+            _mapper = mapper;
             _dbContext = dbContext;
         }
 
@@ -21,8 +28,16 @@ namespace ODataWebAPI.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get()
         {
-            return Ok(_dbContext.Employees.ToList());
-            // return new string[] { "value1", "value2" };
+            // IEnumerable<EmployeeViewModel> vm = 
+            //     _dbContext.Employees
+            //     .Select(e => new EmployeeViewModel {
+            //         EmployeeId = e.EmployeeId,
+            //         FirstName = e.FirstName,
+            //         LastName = e.LastName
+            //     });
+
+            var vm = _mapper.Map<IEnumerable<EmployeeViewModel>>(_dbContext.Employees);
+            return Ok(vm);            
         }
 
         // GET api/values/5
