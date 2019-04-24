@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using ODataWebAPI.Data;
 
 namespace ODataWebAPI.Controllers
 {
@@ -11,9 +10,9 @@ namespace ODataWebAPI.Controllers
     [ApiController]
     public class EmployeeController : ControllerBase
     {
-        private ApplicationDbContext _dbContext;
+        private appContext _dbContext;
 
-        public EmployeeController(ApplicationDbContext dbContext)
+        public EmployeeController(appContext dbContext)
         {
             _dbContext = dbContext;
         }
@@ -22,7 +21,8 @@ namespace ODataWebAPI.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get()
         {
-            return new string[] { "value1", "value2" };
+            return Ok(_dbContext.Employees.ToList());
+            // return new string[] { "value1", "value2" };
         }
 
         // GET api/values/5
