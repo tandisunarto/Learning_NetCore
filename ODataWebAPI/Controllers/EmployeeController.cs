@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNet.OData;
 using Microsoft.AspNetCore.Mvc;
 using ODataWebAPI.Models;
 
 namespace ODataWebAPI.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
+    // [Route("api/[controller]")]
+    // [ApiController]
     public class EmployeeController : ControllerBase
     {
         private IMapper _mapper;
@@ -26,6 +27,7 @@ namespace ODataWebAPI.Controllers
 
         // GET api/values
         [HttpGet]
+        [EnableQuery]
         public ActionResult<IEnumerable<EmployeeViewModel>> Get()
         {
             var vm = _mapper.Map<IEnumerable<EmployeeViewModel>>(_dbContext.Employees);
@@ -33,10 +35,11 @@ namespace ODataWebAPI.Controllers
         }
 
         // GET api/values/5
-        [HttpGet("{id}")]
-        public ActionResult<EmployeeViewModel> Get(int id)
+        [HttpGet]
+        [EnableQuery]
+        public ActionResult<EmployeeViewModel> Get(int key)
         {
-            var vm = _mapper.Map<IEnumerable<EmployeeViewModel>>(_dbContext.Employees.Where(e => e.EmployeeId == id)).FirstOrDefault();
+            var vm = _mapper.Map<IEnumerable<EmployeeViewModel>>(_dbContext.Employees.Where(e => e.EmployeeId == key)).FirstOrDefault();
             return vm;
         }
 

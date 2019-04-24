@@ -68,6 +68,8 @@ namespace ODataWebAPI
             app.UseHttpsRedirection();
             app.UseMvc(b =>
             {
+                b.Select();
+                b.MapODataServiceRoute("odataApp", "odataApp", AppEdmModel.GetEdmModel());
                 b.MapODataServiceRoute("odata", "odata", BooksEdmModel.GetEdmModel());
             });
         }

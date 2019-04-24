@@ -21,6 +21,7 @@ namespace ODataWebAPI
                 context.SaveChanges();
             }
         }
+
         [EnableQuery]
         public IActionResult Get()
         {
