@@ -26,25 +26,18 @@ namespace ODataWebAPI.Controllers
 
         // GET api/values
         [HttpGet]
-        public ActionResult<IEnumerable<string>> Get()
+        public ActionResult<IEnumerable<EmployeeViewModel>> Get()
         {
-            // IEnumerable<EmployeeViewModel> vm = 
-            //     _dbContext.Employees
-            //     .Select(e => new EmployeeViewModel {
-            //         EmployeeId = e.EmployeeId,
-            //         FirstName = e.FirstName,
-            //         LastName = e.LastName
-            //     });
-
             var vm = _mapper.Map<IEnumerable<EmployeeViewModel>>(_dbContext.Employees);
             return Ok(vm);            
         }
 
         // GET api/values/5
         [HttpGet("{id}")]
-        public ActionResult<string> Get(int id)
+        public ActionResult<EmployeeViewModel> Get(int id)
         {
-            return "value";
+            var vm = _mapper.Map<IEnumerable<EmployeeViewModel>>(_dbContext.Employees.Where(e => e.EmployeeId == id)).FirstOrDefault();
+            return vm;
         }
 
         // POST api/values
