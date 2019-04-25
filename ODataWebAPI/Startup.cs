@@ -69,8 +69,7 @@ namespace ODataWebAPI
             app.UseMvc(b =>
             {
                 b.Select();
-                b.MapODataServiceRoute("odataApp", "odataApp", AppEdmModel.GetEdmModel());
-                b.MapODataServiceRoute("odata", "odata", BooksEdmModel.GetEdmModel());
+                b.MapODataServiceRoute("odata", "odata", AppEdmModel.GetEdmModel());
             });
         }
     }
