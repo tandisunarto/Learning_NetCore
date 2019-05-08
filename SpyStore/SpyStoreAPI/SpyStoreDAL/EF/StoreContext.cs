@@ -22,9 +22,7 @@ namespace SpyStoreDAL.EF
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer(
-                    @"Server=(localdb)\mssqllocaldb;Database=SpyStoreShortCore;Trusted_Connection=True;MultipleActiveResultSets=true;",
-options => options.EnableRetryOnFailure());
+                optionsBuilder.UseSqlite("DataSource=app.db");
             }
         }
         public DbSet<Product> Products { get; set; }
