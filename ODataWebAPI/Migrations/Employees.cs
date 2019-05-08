@@ -28,7 +28,7 @@ namespace ODataWebAPI.Migrations
         public string Email { get; set; }
 
         public virtual Employees ReportsToNavigation { get; set; }
-        public virtual ICollection<Customers> Customers { get; set; }
+        public virtual HashSet<Customers> Customers { get; set; }
         public virtual ICollection<Employees> InverseReportsToNavigation { get; set; }
     }
 }

@@ -161,7 +161,10 @@ namespace ODataWebAPI
                 entity.HasOne(d => d.ReportsToNavigation)
                     .WithMany(p => p.InverseReportsToNavigation)
                     .HasForeignKey(d => d.ReportsTo);
-            });
+
+                entity.HasMany(e => e.Customers);
+                    
+            });            
 
             modelBuilder.Entity<Genres>(entity =>
             {

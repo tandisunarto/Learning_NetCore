@@ -5,18 +5,20 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNet.OData;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using ODataWebAPI.Migrations;
 using ODataWebAPI.Models;
 
 namespace ODataWebAPI.Controllers
 {
     // [Route("api/[controller]")]
     // [ApiController]
-    public class EmployeeController : ControllerBase
+    public class EmployeesController : ControllerBase
     {
         private IMapper _mapper;
         private appContext _dbContext;
 
-        public EmployeeController(
+        public EmployeesController(
             appContext dbContext,
             IMapper mapper
             )
@@ -28,18 +30,18 @@ namespace ODataWebAPI.Controllers
         // GET api/values
         [HttpGet]
         [EnableQuery]
-        public ActionResult<IEnumerable<EmployeeViewModel>> Get()
+        public ActionResult<IEnumerable<Employees>> Get()
         {
-            var vm = _mapper.Map<IEnumerable<EmployeeViewModel>>(_dbContext.Employees);
+            var vm = _mapper.Map<IEnumerable<Employees>>(_dbContext.Employees.Include(e => e.Customers));
             return Ok(vm);            
         }
 
         // GET api/values/5
         [HttpGet]
         [EnableQuery]
-        public ActionResult<EmployeeViewModel> Get(int key)
+        public ActionResult<Employees> Get(int key)
         {
-            var vm = _mapper.Map<IEnumerable<EmployeeViewModel>>(_dbContext.Employees.Where(e => e.EmployeeId == key)).FirstOrDefault();
+            var vm = _mapper.Map<IEnumerable<Employees>>(_dbContext.Employees.Where(e => e.EmployeeId == key)).FirstOrDefault();
             return vm;
         }
 
