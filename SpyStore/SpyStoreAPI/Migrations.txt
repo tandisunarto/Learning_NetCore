@@ -1,0 +1,5 @@
+cd .\SpyStoreDAL
+
+dotnet ef migrations add Initial -o EF\Migrations -c SpyStoreDAL.EF.StoreContext 
+
+dotnet ef database update
