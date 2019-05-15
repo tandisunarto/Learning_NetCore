@@ -1,5 +1,7 @@
 @using MVCLesson.Models
+@using Microsoft.Extensions.Options
 @model IEnumerable<ToDoItem>
+@inject IOptions<AppInfoSettings> settings
 
 <h2>ToDo</h2>
 
@@ -33,6 +35,6 @@
     }
 </table>
 <div>
-    <vc:priority-list max-priority="4" is-done="true">
+    <vc:priority-list max-priority="@settings.Value.MaxPriority" is-done="@settings.Value.IsDone">
     </vc:priority-list>
 </div>
