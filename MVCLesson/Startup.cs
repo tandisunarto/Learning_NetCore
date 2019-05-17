@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using MVCLesson.Data;
 using MVCLesson.Models;
 
 namespace MVCLesson
@@ -34,6 +35,8 @@ namespace MVCLesson
 
             services.Configure<AppInfoSettings>(Configuration.GetSection("AppInfo"));
 
+            services.AddSingleton<IRestaurantData, InMemoryRestaurantData>();
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
@@ -58,8 +61,12 @@ namespace MVCLesson
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
+                    name: "Area",
+                    template: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+                routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
+                
             });
         }
     }
