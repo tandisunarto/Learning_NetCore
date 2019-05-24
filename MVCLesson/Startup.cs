@@ -7,10 +7,12 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MVCLesson.Data;
 using MVCLesson.Models;
+using Swashbuckle.AspNetCore.Swagger;
 
 namespace MVCLesson
 {
@@ -31,6 +33,14 @@ namespace MVCLesson
                 // This lambda determines whether user consent for non-essential cookies is needed for a given request.
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
+            });
+
+            services.AddDbContext<ToDoItemContext>(options => {
+                options.UseInMemoryDatabase("ToDoItem");
+            });
+
+            services.AddSwaggerGen(c => {
+                c.SwaggerDoc("v1", new Info { Title = "ToDo Items API", Version = "1.0.0" });
             });
 
             services.Configure<AppInfoSettings>(Configuration.GetSection("AppInfo"));
@@ -57,6 +67,12 @@ namespace MVCLesson
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c => {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "ToDo Items API");
+                c.RoutePrefix = string.Empty;
+            });
 
             app.UseMvc(routes =>
             {
