@@ -1,0 +1,18 @@
+2019-09-10 14:25:58.277 -04:00 [INF] Starting up the service
+2019-09-10 14:27:44.805 -04:00 [INF] Starting up the service
+2019-09-10 14:27:45.633 -04:00 [INF] The website is running. Status Code "OK"
+2019-09-10 14:27:45.637 -04:00 [INF] HI
+2019-09-10 14:27:50.651 -04:00 [INF] The website is running. Status Code "OK"
+2019-09-10 14:27:50.652 -04:00 [INF] HI
+2019-09-10 14:27:55.660 -04:00 [INF] The website is running. Status Code "OK"
+2019-09-10 14:27:55.661 -04:00 [INF] HI
+2019-09-10 14:28:00.671 -04:00 [INF] The website is running. Status Code "OK"
+2019-09-10 14:28:00.671 -04:00 [INF] HI
+2019-09-10 14:28:05.680 -04:00 [INF] The website is running. Status Code "OK"
+2019-09-10 14:28:05.680 -04:00 [INF] HI
+2019-09-10 14:28:10.688 -04:00 [INF] The website is running. Status Code "OK"
+2019-09-10 14:28:10.688 -04:00 [INF] HI
+2019-09-10 14:28:15.697 -04:00 [INF] The website is running. Status Code "OK"
+2019-09-10 14:28:15.697 -04:00 [INF] HI
+2019-09-10 14:28:20.706 -04:00 [INF] The website is running. Status Code "OK"
+2019-09-10 14:28:20.707 -04:00 [INF] HI
