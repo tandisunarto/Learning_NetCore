@@ -34,7 +34,14 @@
         </tr>
     }
 </table>
+
+<!-- using tag helper -->
 <div>
     <vc:priority-list max-priority="@settings.Value.MaxPriority" is-done="@settings.Value.IsDone">
     </vc:priority-list>
+</div>
+
+<!-- using razor syntax -->
+<div>
+    @await Component.InvokeAsync("PriorityList", new { maxPriority=@settings.Value.MaxPriority, isDone=@settings.Value.IsDone })
 </div>
