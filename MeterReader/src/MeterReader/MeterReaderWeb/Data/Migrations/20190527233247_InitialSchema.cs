@@ -1,9 +1,9 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace MeterReaderWeb.Migrations
+namespace MeterReaderWeb.Data.Migrations
 {
-    public partial class InitialWithIdentity : Migration
+    public partial class InitialSchema : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -12,7 +12,7 @@ namespace MeterReaderWeb.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("Sqlite:Autoincrement", true),
                     Address1 = table.Column<string>(nullable: true),
                     Address2 = table.Column<string>(nullable: true),
                     Address3 = table.Column<string>(nullable: true),
@@ -66,26 +66,11 @@ namespace MeterReaderWeb.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Readings",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    MeterId = table.Column<string>(nullable: true),
-                    Reading = table.Column<double>(nullable: false),
-                    ReadingTime = table.Column<DateTime>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Readings", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Customers",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("Sqlite:Autoincrement", true),
                     Name = table.Column<string>(nullable: true),
                     CompanyName = table.Column<string>(nullable: true),
                     PhoneNumber = table.Column<string>(nullable: true),
@@ -107,7 +92,7 @@ namespace MeterReaderWeb.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("Sqlite:Autoincrement", true),
                     RoleId = table.Column<string>(nullable: false),
                     ClaimType = table.Column<string>(nullable: true),
                     ClaimValue = table.Column<string>(nullable: true)
@@ -128,7 +113,7 @@ namespace MeterReaderWeb.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("Sqlite:Autoincrement", true),
                     UserId = table.Column<string>(nullable: false),
                     ClaimType = table.Column<string>(nullable: true),
                     ClaimValue = table.Column<string>(nullable: true)
@@ -208,6 +193,27 @@ namespace MeterReaderWeb.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Readings",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    CustomerId = table.Column<int>(nullable: false),
+                    Value = table.Column<double>(nullable: false),
+                    ReadingDate = table.Column<DateTime>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Readings", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Readings_Customers_CustomerId",
+                        column: x => x.CustomerId,
+                        principalTable: "Customers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.InsertData(
                 table: "Address",
                 columns: new[] { "Id", "Address1", "Address2", "Address3", "CityTown", "Country", "PostalCode", "StateProvince" },
@@ -228,6 +234,26 @@ namespace MeterReaderWeb.Migrations
                 columns: new[] { "Id", "AddressId", "CompanyName", "Name", "PhoneNumber" },
                 values: new object[] { 2, 2, null, "Jake Smith", "(404) 555-1212" });
 
+            migrationBuilder.InsertData(
+                table: "Readings",
+                columns: new[] { "Id", "CustomerId", "ReadingDate", "Value" },
+                values: new object[] { 1, 1, new DateTime(2020, 11, 27, 18, 32, 47, 609, DateTimeKind.Local).AddTicks(5700), 1458.9000000000001 });
+
+            migrationBuilder.InsertData(
+                table: "Readings",
+                columns: new[] { "Id", "CustomerId", "ReadingDate", "Value" },
+                values: new object[] { 2, 1, new DateTime(2020, 11, 27, 18, 32, 47, 636, DateTimeKind.Local).AddTicks(4260), 18403.5 });
+
+            migrationBuilder.InsertData(
+                table: "Readings",
+                columns: new[] { "Id", "CustomerId", "ReadingDate", "Value" },
+                values: new object[] { 3, 2, new DateTime(2020, 11, 27, 18, 32, 47, 636, DateTimeKind.Local).AddTicks(4300), 0.0 });
+
+            migrationBuilder.InsertData(
+                table: "Readings",
+                columns: new[] { "Id", "CustomerId", "ReadingDate", "Value" },
+                values: new object[] { 4, 2, new DateTime(2020, 11, 27, 18, 32, 47, 636, DateTimeKind.Local).AddTicks(4310), 304.75 });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -237,8 +263,7 @@ namespace MeterReaderWeb.Migrations
                 name: "RoleNameIndex",
                 table: "AspNetRoles",
                 column: "NormalizedName",
-                unique: true,
-                filter: "[NormalizedName] IS NOT NULL");
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetUserClaims_UserId",
@@ -264,13 +289,17 @@ namespace MeterReaderWeb.Migrations
                 name: "UserNameIndex",
                 table: "AspNetUsers",
                 column: "NormalizedUserName",
-                unique: true,
-                filter: "[NormalizedUserName] IS NOT NULL");
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Customers_AddressId",
                 table: "Customers",
                 column: "AddressId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Readings_CustomerId",
+                table: "Readings",
+                column: "CustomerId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -291,9 +320,6 @@ namespace MeterReaderWeb.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Customers");
-
-            migrationBuilder.DropTable(
                 name: "Readings");
 
             migrationBuilder.DropTable(
@@ -301,6 +327,9 @@ namespace MeterReaderWeb.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Customers");
 
             migrationBuilder.DropTable(
                 name: "Address");

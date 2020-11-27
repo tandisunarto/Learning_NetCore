@@ -35,8 +35,8 @@ namespace MeterReaderWeb
         });
 
       services.AddDbContext<ReadingContext>(options =>
-          options.UseSqlServer(
-              _config.GetConnectionString("DefaultConnection")));
+          options.UseSqlite(
+              _config.GetConnectionString("SqliteConnection")));
 
       services.AddDefaultIdentity<IdentityUser>()
         .AddEntityFrameworkStores<ReadingContext>();
