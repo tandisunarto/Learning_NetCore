@@ -14,6 +14,8 @@
     <Content Remove="reader-app\**" />
     <EmbeddedResource Remove="reader-app\**" />
     <None Remove="reader-app\**" />
+    <None Remove="Protos\MeterReader.proto" />
+    <None Remove="Protos\enums.proto" />
   </ItemGroup>
 
   <ItemGroup>
@@ -27,10 +29,18 @@
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.9.5" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.0.0" />
+    <PackageReference Include="Grpc.AspNetCore" Version="2.33.1" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\MeterReaderLib\MeterReaderLib.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Protobuf Include="Protos\MeterReader.proto" GrpcServices="Server" />
+    <Protobuf Include="Protos\enums.proto" GrpcServices="" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Services\" />
+  </ItemGroup>
 </Project>
