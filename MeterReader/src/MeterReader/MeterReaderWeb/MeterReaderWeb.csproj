@@ -14,8 +14,8 @@
     <Content Remove="reader-app\**" />
     <EmbeddedResource Remove="reader-app\**" />
     <None Remove="reader-app\**" />
-    <None Remove="Protos\MeterReader.proto" />
-    <None Remove="Protos\enums.proto" />
+<!--    <None Remove="Protos\MeterReader.proto" />
+    <None Remove="Protos\enums.proto" />-->
   </ItemGroup>
 
   <ItemGroup>
@@ -38,7 +38,7 @@
 
   <ItemGroup>
     <Protobuf Include="Protos\MeterReader.proto" GrpcServices="Server" ProtoRoot="Protos\" />
-    <Protobuf Include="Protos\enums.proto" GrpcServices="" ProtoRoot="Protos\"/>
+    <Protobuf Include="Protos\enums.proto" GrpcServices="" ProtoRoot="Protos\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Services\" />
