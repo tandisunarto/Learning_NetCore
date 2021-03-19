@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace GloboTicket.TicketManagement.Application.Features.Categories.Queries.GetCategoriesList
 {
-    public class GetCategoriesListQueryHandler : IRequestHandler<GetCategoriesListQuery, List<CategoryListVm>>
+    public class GetCategoriesListQueryHandler : IRequestHandler<GetCategoriesListQuery, List<CategoryListVM>>
     {
         private readonly IAsyncRepository<Category> _categoryRepository;
         private readonly IMapper _mapper;
@@ -20,10 +20,10 @@ namespace GloboTicket.TicketManagement.Application.Features.Categories.Queries.G
             _categoryRepository = categoryRepository;
         }
 
-        public async Task<List<CategoryListVm>> Handle(GetCategoriesListQuery request, CancellationToken cancellationToken)
+        public async Task<List<CategoryListVM>> Handle(GetCategoriesListQuery request, CancellationToken cancellationToken)
         {
             var allCategories = (await _categoryRepository.ListAllAsync()).OrderBy(x => x.Name);
-            return _mapper.Map<List<CategoryListVm>>(allCategories);
+            return _mapper.Map<List<CategoryListVM>>(allCategories);
         }
     }
 }

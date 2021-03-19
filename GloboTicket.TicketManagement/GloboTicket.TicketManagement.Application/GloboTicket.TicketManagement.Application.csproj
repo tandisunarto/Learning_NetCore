@@ -5,9 +5,7 @@
   </PropertyGroup>
   
   <ItemGroup>
-    <Folder Include="Contracts\" />
     <Folder Include="Contracts\Persistence\" />
-    <Folder Include="Features\" />
     <Folder Include="Features\Events\" />
     <Folder Include="Profiles\" />
     <Folder Include="Features\Events\Queries\" />
@@ -15,11 +13,8 @@
     <Folder Include="Features\Events\Queries\GetEventsList\" />
     <Folder Include="Features\Events\Commands\" />
     <Folder Include="Features\Categories\" />
-    <Folder Include="Features\Orders\" />
     <Folder Include="Features\Categories\Commands\" />
     <Folder Include="Features\Categories\Queries\" />
-    <Folder Include="Features\Orders\Commands\" />
-    <Folder Include="Features\Orders\Queries\" />
     <Folder Include="Features\Categories\Queries\GetCategoriesList\" />
     <Folder Include="Features\Categories\Queries\GetCategoriesListWithEvents\" />
     <Folder Include="Features\Events\Commands\CreateEvent\" />
