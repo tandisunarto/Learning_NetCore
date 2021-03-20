@@ -8,7 +8,7 @@ namespace GloboTicket.TicketManagement.Persistence.Configurations
     {
         public void Configure(EntityTypeBuilder<Event> builder)
         {
-            throw new System.NotImplementedException();
+            //throw new System.NotImplementedException();
         }
     }
 }
