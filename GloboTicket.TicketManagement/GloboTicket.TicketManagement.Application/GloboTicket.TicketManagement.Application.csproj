@@ -6,9 +6,7 @@
   
   <ItemGroup>
     <Folder Include="Contracts\Persistence\" />
-    <Folder Include="Features\Events\" />
     <Folder Include="Profiles\" />
-    <Folder Include="Features\Events\Queries\" />
     <Folder Include="Features\Events\Queries\GetEventDetail\" />
     <Folder Include="Features\Events\Queries\GetEventsList\" />
     <Folder Include="Features\Events\Commands\" />
