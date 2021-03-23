@@ -1,4 +1,5 @@
-﻿using GloboTicket.TicketManagement.Domain.Common;
+﻿using GloboTicket.TicketManagement.Application.Contracts;
+using GloboTicket.TicketManagement.Domain.Common;
 using GloboTicket.TicketManagement.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -9,9 +10,17 @@ namespace GloboTicket.TicketManagement.Persistence
 {
     public class GloboTicketDbContext : DbContext    
     {
+        private readonly ILoggedInUserService loggedInUserService;
+
         public GloboTicketDbContext(DbContextOptions<GloboTicketDbContext> options) 
             : base(options) 
         {
+        }
+
+        public GloboTicketDbContext(DbContextOptions<GloboTicketDbContext> options, ILoggedInUserService loggedInUserService)
+            : base(options)
+        {
+            this.loggedInUserService = loggedInUserService;
         }
 
         public DbSet<Event> Events { get; set; }
@@ -193,9 +202,11 @@ namespace GloboTicket.TicketManagement.Persistence
                 {
                     case EntityState.Added:
                         entry.Entity.CreatedDate = DateTime.Now;
+                        entry.Entity.CreatedBy = loggedInUserService.UserId;
                         break;
                     case EntityState.Modified:
                         entry.Entity.LastModifiedDate = DateTime.Now;
+                        entry.Entity.LastModifiedBy = loggedInUserService.UserId;
                         break;
                 }
             }
